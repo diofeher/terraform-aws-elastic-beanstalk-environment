@@ -929,7 +929,7 @@ resource "aws_s3_bucket" "elb_logs" {
   #bridgecrew:skip=BC_AWS_S3_14:Skipping `Ensure all data stored in the S3 bucket is securely encrypted at rest` check until bridgecrew will support dynamic blocks (https://github.com/bridgecrewio/checkov/issues/776).
   #bridgecrew:skip=CKV_AWS_52:Skipping `Ensure S3 bucket has MFA delete enabled` due to issue in terraform (https://github.com/hashicorp/terraform-provider-aws/issues/629).
   count         = var.tier == "WebServer" && var.environment_type == "LoadBalanced" ? 1 : 0
-  bucket        = "${module.this.id}-eb-loadbalancer-logs"
+  bucket        = "eb-loadbalancer-logs"
   acl           = "private"
   force_destroy = var.force_destroy
   policy        = join("", data.aws_iam_policy_document.elb_logs.*.json)
